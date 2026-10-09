@@ -64,7 +64,7 @@
   "system_prompt_desc": "系統提示詞、指令",
   "tap_to_open": "點擊開啟",
   "temperature": "溫度",
-  "title": "PAIOS",
+  "title": "VTLObot",
   "tokens": "每次回應的 Token 數",
   "unavailable": "不可用",
   "waiting_engine": "正在檢查模型可用性",
