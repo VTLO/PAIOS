@@ -143,7 +143,7 @@ class IntroPageState extends State<IntroPage> {
                     // This is the animated, collapsing app bar
                     SliverAppBar.large(
                       surfaceTintColor: Colors.transparent,
-                      title: const Text('PAIOS'),
+                      title: const Text('VTLObot'),
                       // 'pinned: true' makes the app bar stick to the top
                       // 'floating: false' and 'snap: false' are the default
                       // and give the standard "scroll up to collapse" behavior.

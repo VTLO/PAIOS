@@ -106,21 +106,27 @@ class AIEngine with md.ChangeNotifier {
   Future<void> startAnalytics() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("analytics", true);
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    await FirebaseAnalytics.instance.setConsent();
-    await Firebase.app().setAutomaticDataCollectionEnabled(true);
-    await Firebase.app().setAutomaticResourceManagementEnabled(true);
-    analyticsDone = true;
-    await log("application", "info", "Enabling analytics");
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      await FirebaseAnalytics.instance.setConsent();
+      await Firebase.app().setAutomaticDataCollectionEnabled(true);
+      await Firebase.app().setAutomaticResourceManagementEnabled(true);
+      analyticsDone = true;
+      await log("application", "info", "Enabling analytics");
+    } catch (e) {
+      await log("application", "warning", "Analytics unavailable: $e");
+    }
   }
 
   Future<void> stopAnalytics() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("analytics", false);
-    await Firebase.app().setAutomaticDataCollectionEnabled(false);
-    await Firebase.app().setAutomaticResourceManagementEnabled(false);
+    if (analyticsDone) {
+      await Firebase.app().setAutomaticDataCollectionEnabled(false);
+      await Firebase.app().setAutomaticResourceManagementEnabled(false);
+    }
     await log("application", "info", "Disabling analytics");
   }
 
